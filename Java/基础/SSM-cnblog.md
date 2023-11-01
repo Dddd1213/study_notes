@@ -398,6 +398,13 @@ private void pt(){};
   public @interface MyLog {
   }
   ```
+  
+  - 
+  
+  ```java
+   @Pointcut("execution(* com.sky.mapper.*.*(..))&&@annotation(com.sky.annotation.MyLog)")
+      public void autoFillPt(){};
+  ```
 
 
 
