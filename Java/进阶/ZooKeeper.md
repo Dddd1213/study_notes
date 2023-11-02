@@ -351,13 +351,6 @@ public class Ticket12306 implements Runnable{
 - serviceId，编号越大权重越大
 - 先超过半数，就是leader
 
+## 集群创建
 
-
-
-
-
-
-
-
-
-
+- 看同目录下另一个md
