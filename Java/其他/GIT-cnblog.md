@@ -1,4 +1,4 @@
-﻿# Git
+# Git
 
 [TOC]
 
@@ -128,3 +128,12 @@
 ## git在Idea中的使用
 
 [【Git】在IDEA中使用Git_idea git如何使用-CSDN博客](https://blog.csdn.net/qq_62592360/article/details/128949057?ops_request_misc=&request_id=&biz_id=102&utm_term=git在idea中的使用&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-3-128949057.nonecase&spm=1018.2226.3001.4187)
+
+
+
+## 错误记录
+
+### github不记录贡献值？
+
+- 查看邮箱，用户名是否对应
+- 把master改为默认分支（改完这个就有显示了）
