@@ -77,6 +77,7 @@
 
 ## Curator
 
+- Curator是Netflix公司开源的一套zookeeper客户端框架，解决了很多Zookeeper客户端非常底层的细节开发工作，包括连接重连、反复注册Watcher和NodeExistsException异常等等，现在是Apache的开源项目。
 - 记得和ZooKeeper的版本对应（可以去官网搜）
 
 

@@ -23,6 +23,8 @@
 
 ![image-20231101091931559](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231101091931559.png)
 
+
+
 ## Dubbo概述
 
 - Java RPC框架，提供RPC方案和SOA服务治理方案
@@ -120,37 +122,113 @@
 
 
 
+## 第一个dubbo程序细节
+
+- protocl端口：为了防止端口冲突，可以把端口号设为“-1”，会自动使用可用端口
+
+- consumer调用的实际上是iml的**代理对象**，对consumer屏蔽网络通信过程进行数据传输
+
+
+
+## SpringBoot整合Dubbo
+
+### 梳理
+
+- provider：![6db46973c189912e5f9c43820adbd0c](D:\flie\vx\WeChat Files\wxid_k6ct1pg6tzkg22\FileStorage\Temp\6db46973c189912e5f9c43820adbd0c.jpg)
+
+- consumer：![4fe7153c3527f322ec119190328d651](D:\flie\vx\WeChat Files\wxid_k6ct1pg6tzkg22\FileStorage\Temp\4fe7153c3527f322ec119190328d651.png)
 
 
 
 
+### 整合
+
+- 依赖
+
+```xml
+<dependency>
+    <groupId>org.apache.dubbo</groupId>
+    <artifactId>dubbo-spring-boot-starter</artifactId>
+    <version>3.2.4</version>
+</dependency>
+```
+
+- 配置
+
+- ```yml
+  spring:
+    application:
+      name: COMSUMMER01
+  dubbo:
+    protocol:
+      name: dubbo
+      port: -1
+  ```
+
+- 注解
+  - provider里放@DubboService
+  - 启动类里放@EnableDubbo
+  - consumer需要注入的地方放@DubboReference(url="....")
+
+### 注解
+
+- @EnableDubbo：扫描Dubbo注解，扫描当前包及其子包
+  - @DubboComponentScan(basePackages={"。。。。"})：扫描指定路径包
+  - 也可在配置文件中用dubbo.scan.base-packages指定
+
+- @DubboService：Spring会将它创建成对象，并发布成Dubbo服务
+  - 为了保证兼容性，最好也加@Service
+- @DubboReference注解：为consumer注入远端服务的代理对象
 
 
 
+# 04
+
+## DubboRPC的直连
+
+- 无需注册中心的接入
+- 三要素：协议，通信方式，序列化
+
+## 序列化
+
+![8e59eb60c7bd2c4671172f98c62217d](D:\flie\vx\WeChat Files\wxid_k6ct1pg6tzkg22\FileStorage\Temp\8e59eb60c7bd2c4671172f98c62217d.png)
 
 
 
+### Kryo序列化
+
+- 导入依赖
+- 配置文件：dubbo.protocol.serialization: kryo
+- 注解：@DubboReference 在url后面直接加?serialization= kryo即可
 
 
 
+# 05
+
+## 地址缓存
+
+- 第一次调用本地后会缓存到本地，后面调用就不会再访问
+
+## 超时与重试
+
+- 设超时时间，无法访问就自动断开
+  - 在@DubboService(timeout =3000, retires = 0)
+  - 后面是重试次数
+
+## 多版本
+
+- 灰度发布
+- version属性设置多版本
+- 在service和Reference里分别指定即可
+
+## 负载均衡
+
+- 在Reference里加loadbalance
 
 
+## 集群容错
 
+## 服务降级
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- 在@Reference里用mock指定
 
