@@ -1,4 +1,4 @@
-## **搭建Zookeeper集群**
+﻿## **搭建Zookeeper集群**
 
 ### **1.1 搭建要求**
 
@@ -123,7 +123,7 @@ server.3=192.168.149.135:2883:3883
 
 
 
-![img](images/wps11.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204731897-922663601.jpg) 
 
 启动后我们查询一下每个实例的运行状态
 
@@ -137,17 +137,17 @@ server.3=192.168.149.135:2883:3883
 
 先查询第一个服务
 
-![img](images\wps12.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204731487-1591451002.jpg) 
 
 Mode为follower表示是**跟随者**（从）
 
 再查询第二个服务Mod 为leader表示是**领导者**（主）
 
-![img](images/\wps13.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204731056-257270292.jpg) 
 
 查询第三个为跟随者（从）
 
-![img](images/\wps14.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204730647-695998403.jpg) 
 
 ### **1.5 模拟集群异常**
 
@@ -162,7 +162,7 @@ Mode为follower表示是**跟随者**（从）
 /usr/local/zookeeper-cluster/zookeeper-2/bin/zkServer.sh status
 ```
 
-![img](images/\wps15.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204730206-94755362.jpg) 
 
 由此得出结论，3个节点的集群，从服务器挂掉，集群正常
 
@@ -176,7 +176,7 @@ Mode为follower表示是**跟随者**（从）
 
 
 
-![img](images/\wps16.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204729773-1768366413.jpg) 
 
 由此得出结论，3个节点的集群，2个从服务器都挂掉，主服务器也无法运行。因为可运行的机器没有超过集群总数量的半数。
 
@@ -190,7 +190,7 @@ Mode为follower表示是**跟随者**（从）
 
 
 
-![img](images/\wps17.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204729344-758846997.jpg) 
 
 （4）我们把3号服务器也启动起来，把2号服务器停掉,停掉后观察1号和3号的状态。
 
@@ -204,7 +204,7 @@ Mode为follower表示是**跟随者**（从）
 
 
 
-![img](images/\wps18.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204728802-650853937.jpg) 
 
 发现新的leader产生了~  
 
@@ -221,7 +221,7 @@ Mode为follower表示是**跟随者**（从）
 
 
 
-![img](images/\wps19.jpg)![img](images/\wps20.jpg) 
+![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204728186-1389365223.jpg)![img](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104204727491-1174166388.jpg) 
 
 我们会发现，2号服务器启动后依然是跟随者（从服务器），3号服务器依然是领导者（主服务器），没有撼动3号服务器的领导地位。
 

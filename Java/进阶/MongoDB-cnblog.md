@@ -1,4 +1,4 @@
-﻿# MongoDB
+# MongoDB
 
 [TOC]
 
@@ -356,8 +356,6 @@ db.collection.find(query,options).explain(options)
 # 4
 
 # 案例：文章评论
-
-
 
 黑马笔记：[mongodb_base.pdf](file:///D:/flie/资料/9、MongoDB基础到进阶/资料-mongodb基础到进阶/01_MongoDB用起来-快速上手/01_讲义/mongodb_base.pdf)
 
