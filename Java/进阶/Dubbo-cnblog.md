@@ -1,4 +1,4 @@
-# Dubbo
+﻿# Dubbo
 
 [TOC]
 
@@ -12,16 +12,16 @@
 - 分布式架构：在垂直架构的基础上，将公共业务模块抽取出来，作为独立的服务，供其他调用者消费，以实现服务的共享和重用
   - RPC：远程过程调用
 
-![image-20231101091603710](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231101091603710.png)
+![image-20231101091603710](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195625647-1419299491.png)
 
 - SOA架构：面相服务的架构
   - ESB：企业服务总线，提供服务的交互和治理
 
-![image-20231101091627167](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231101091627167.png)
+![image-20231101091627167](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195625269-748345181.png)
 
 - 微服务
 
-![image-20231101091931559](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231101091931559.png)
+![image-20231101091931559](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195624906-746022762.png)
 
 
 
@@ -29,7 +29,7 @@
 
 - Java RPC框架，提供RPC方案和SOA服务治理方案
 
-![image-20231101093711350](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231101093711350.png)
+![image-20231101093711350](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195624485-648646107.png)
 
 
 
@@ -134,9 +134,9 @@
 
 ### 梳理
 
-- provider：![6db46973c189912e5f9c43820adbd0c](D:\flie\vx\WeChat Files\wxid_k6ct1pg6tzkg22\FileStorage\Temp\6db46973c189912e5f9c43820adbd0c.jpg)
+- provider：![6db46973c189912e5f9c43820adbd0c](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195623902-1987611512.jpg)
 
-- consumer：![4fe7153c3527f322ec119190328d651](D:\flie\vx\WeChat Files\wxid_k6ct1pg6tzkg22\FileStorage\Temp\4fe7153c3527f322ec119190328d651.png)
+- consumer：![4fe7153c3527f322ec119190328d651](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195623425-341661211.png)
 
 
 
@@ -191,7 +191,7 @@
 
 ## 序列化
 
-![8e59eb60c7bd2c4671172f98c62217d](D:\flie\vx\WeChat Files\wxid_k6ct1pg6tzkg22\FileStorage\Temp\8e59eb60c7bd2c4671172f98c62217d.png)
+![8e59eb60c7bd2c4671172f98c62217d](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195622656-1730970155.png)
 
 
 

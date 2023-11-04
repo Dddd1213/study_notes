@@ -1,4 +1,4 @@
-# RabbitMQ
+﻿# RabbitMQ
 
 [TOC]
 
@@ -15,7 +15,7 @@
 - 消息发送者，消息代理，消息接受者（服务提供方）
 - 缺点：不能立刻得到结果；不知道下游业务是否执行成功；业务安全依赖于代理的可靠性
 
-![image-20231103175340923](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231103175340923.png)
+![image-20231103175340923](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195648300-330155497.png)
 
 ## 技术选型
 
@@ -27,7 +27,7 @@
 - virtualhost：虚拟主机，隔离作用
 - 交换机：路由和转发消息，不存储
 
-![image-20231103200428539](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231103200428539.png)
+![image-20231103200428539](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195647697-1376885323.png)
 
 
 
@@ -129,7 +129,7 @@ spring:
 
 ### 广播模式
 
-![image-20231103213802969](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231103213802969.png)
+![image-20231103213802969](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195647250-2081228598.png)
 
 ## 订阅模式
 
@@ -137,7 +137,7 @@ spring:
   - 使用derect类型的交换机
   - 使用bindingKey，发布者发布的时候指定bingdingKey，交换机把消息发给有指定bingdingkey的队列
 
-![image-20231103213846773](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231103213846773.png)
+![image-20231103213846773](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195646796-1947299316.png)
 
 ### 通配符订阅
 
@@ -146,7 +146,7 @@ spring:
   - \# 代指0个或多个单词
   - \*代指一个单词
 
-![image-20231103213905773](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231103213905773.png)
+![image-20231103213905773](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195646363-1104031627.png)
 
 
 
@@ -160,7 +160,7 @@ spring:
 - new一个对象和用builder都可以
 - 队列和交换机的声明一般在消费者这边
 
-- 选第一个![image-20231104125242203](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231104125242203.png)
+- 选第一个![image-20231104125242203](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195645962-640687768.png)
 
 
 ### 基于Bean声明
@@ -294,7 +294,7 @@ spring:
   - 其它情况都会返回NACK，告知投递失败
 - 其中`ack`和`nack`属于**Publisher Confirm**机制，`ack`是投递成功；`nack`是投递失败。而`return`则属于**Publisher Return**机制。
 
-![image-20231104141911034](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231104141911034.png)
+![image-20231104141911034](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195645539-1364021842.png)
 
 
 
@@ -557,7 +557,7 @@ spring:
   - eg. 处理消息的业务逻辑是把订单状态从未支付修改为已支付。因此我们就可以在执行业务时判断订单状态是否是未支付，如果不是则证明订单已经被处理过，无需重复处理。
 - 举例实现：（红线圈起来的那一行相当于上面三行，且不存在并发问题）
 
-![image-20231104163924719](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231104163924719.png)
+![image-20231104163924719](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195645109-922253599.png)
 
 ### 兜底方案
 
@@ -571,7 +571,7 @@ spring:
 
 - 使用场景
 
-![image-20231104164857446](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231104164857446.png)
+![image-20231104164857446](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195644662-1575178051.png)
 
 
 
@@ -585,7 +585,7 @@ spring:
 - 给一个消息设置一个过期时间，simple.queue中不绑定消费者，消息过期后变成死信进入死信交换机，然后再被消费者消费，从而实现延迟消息
   - 发送时，加一个new MessageProcessor()，然后在里面message.getMessageProperties.setExpiration("1000")
 
-![image-20231104165238539](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231104165238539.png)
+![image-20231104165238539](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195644157-329649276.png)
 
 
 
@@ -655,4 +655,4 @@ void testPublisherDelayMessage() {
 - 优化：
 - 用户下单后的第10秒、20秒、30秒、45秒、60秒、1分30秒、2分、...30分分别设置延迟消息，如果提前发现订单已经支付，则后续的检测取消即可。这样就可以有效避免对MQ资源的浪费了。
 
-![image-20231104191909857](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231104191909857.png)
+![image-20231104191909857](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195643672-1322030958.png)

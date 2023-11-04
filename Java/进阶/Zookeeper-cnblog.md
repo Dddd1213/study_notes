@@ -1,4 +1,4 @@
-# ZooKeeper
+﻿# ZooKeeper
 
 [TOC]
 
@@ -58,13 +58,13 @@
 - 删除：delete
   - 如果节点不为空：deleteall
 
-![image-20231031214923476](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231031214923476.png)
+![image-20231031214923476](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195657259-25137581.png)
 
 - 创建临时节点：加-e
   - 当前会话关掉（quit）就会消失
 - 顺序：加 -s
 
-![image-20231031215156816](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231031215156816.png)
+![image-20231031215156816](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231104195656784-524887163.png)
 
 - 临时顺序：-es
 - 查看详细信息：ls -s
