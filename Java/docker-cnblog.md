@@ -243,7 +243,14 @@ networks:
 
 
 
+# 4
 
+- 练习：在docker上部署一个项目，测试上传文件和网络互联
+- 参考：黑马视频，[docker部署springboot项目文件上传路径_docker 部署后端测试上传图片 图片在哪找 并且前端能访问的地址路径-CSDN博客](https://blog.csdn.net/qq_40298902/article/details/125294163?ops_request_misc=%7B%22request%5Fid%22%3A%22169924012716800192224373%22%2C%22scm%22%3A%2220140713.130102334.pc%5Fall.%22%7D&request_id=169924012716800192224373&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-125294163-null-null.142^v96^pc_search_result_base2&utm_term=Docker部署项目的文件上传&spm=1018.2226.3001.4187)
+
+
+
+# 5
 
 # 报错合集
 
