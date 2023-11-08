@@ -1,4 +1,4 @@
-﻿# Redis
+# Redis
 
 [TOC]
 
@@ -54,10 +54,10 @@
 ## String
 
 - 取key对应的值 get <key\>
-
 - 追加 append <key\><value\>
 - 获取长度 strlen <key\>
-- 设置值（只有key不存在的时候能用）setnx <key\><value\>
+- **设置值（只有key不存在的时候能用）setnx <key\><value\>**
+  - 用作锁
 - 数字增1 incr <key\>
 - incrby <key\> <加减的值\>
 - 减1 decr <key\>
