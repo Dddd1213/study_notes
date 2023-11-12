@@ -68,7 +68,8 @@
 - 删除分支
   - git branch -d 分支名 （删除时做各种检查）
   - git branch -D 分支名 （强制删除）
-
+  - git push origin --delete 分支名 （删除远端分支）
+  
 - 解决冲突
   - 合并时若有冲突，两个分支的内容都会被写到文件中，需要手动处理，然后add commit
 
