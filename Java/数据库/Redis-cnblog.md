@@ -22,13 +22,14 @@
 - 前台启动：redis-server
 - 后台启动（推荐）
   - cd /usr/local/bin
-  - redis-server /etc/redis.conf
+  - redis-server /etc/redis.conf（conf在这！！！！！！）
   - redis-cli 连接 
 - 默认端口：6379
 - 切换库：默认0,16个数据库
   - select <dbid\>
 - 设置密码：.conf里requirepass
   - 连接完后 auth 密码，才可使用
+- 关闭：./redis-cli shutdown
 - **单线程** + 多路IO复用，支持更多的数据类型，支持持久化
 
 ## key
