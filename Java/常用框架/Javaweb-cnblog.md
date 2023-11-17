@@ -521,7 +521,7 @@ www.apache.org/index.html#projects-list
 
 - ```java
   // ${id} 直接拼接，有sql注入的风险
-  @Delete("delete from emp where id = &{id};")
+  @Delete("delete from emp where id = ${id};")
   ```
 
 ### 新增
