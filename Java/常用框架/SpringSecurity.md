@@ -10,6 +10,8 @@
 - 认证
 - 授权
 
+![image-20231116150537985](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231116150537985.png)
+
 # 02
 
 ## 依赖
@@ -68,7 +70,9 @@
 
 - service实现UserDetailsService，重写loadUserByUsername，改为从自己的数据库中查询，返回userDetails包装类
 
-- domain里implements UserDetails，重写方法
+- domain里userLogin implements UserDetails，重写方法
+
+  - UserDetails是Security框架中自动创建的用户接口，在没有用户或用户源相关配置时会自动创建User类实现该接口
 
 - 注意：如果密码是铭文存储，前面要加{noop} 
 
