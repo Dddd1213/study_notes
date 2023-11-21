@@ -1,4 +1,4 @@
-﻿# RabbitMQ
+# RabbitMQ
 
 [TOC]
 
@@ -316,7 +316,6 @@ spring:
 - **returncallback**
   - 当你发送一条消息到RabbitMQ，但是消息无法被正确路由到队列时，RabbitMQ会将消息返回给生产者。
   - Return Callback用于处理这种无法被路由到队列的消息，你可以在Return Callback中定义自己的处理逻辑，比如记录日志或者重新发送消息。
-  - 
   - 每个`RabbitTemplate`只能配置一个`ReturnCallback`，因此我们可以在配置类中统一设置。
   - 这里也可以用Autoware实现
 
