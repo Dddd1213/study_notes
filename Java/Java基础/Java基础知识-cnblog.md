@@ -268,6 +268,42 @@
 
 
 
+## 第17章 多线程编程（582~597）
+
+### 继承Thread创建线程
+
+- Cat 继承Thread
+- Cat.start() 启动线程
+  - 启动子线程后，主线程不会阻塞，这两个线程交替执行
+  - 如果用Cat.run()，就不会启动子线程，而是主线程跑Cat，会阻塞执行
+  - start中有个start0()，真正实现了多线程
+- Thread.currentThread().getName() 获取当前运行的线程名
+- 开始跑后在终端输入Jconsole可以查看当前线程执行情况
+
+### 实现Runnable接口创建线程
+
+- 不能调用start
+- new Thread(dog)然后thread.start()
+- 设计模式：静态代理
+- 梳理：
+  - Thread(dog) 把dog传进去，this.target = target，就把代理里的ThreadProxy里的target变成了小狗
+  - 主程序调用的是ThreadProxy的start方法，在start里调用start0()，start0()里调用代理的run()
+  - 此时判断，target已经是小狗，就调用taget.run()（这里的run是dog实现runnable然后重写了的那个run，会汪汪叫的那个run）
+
+## 多线程售票
+
+- 秒杀问题：超卖
+
+## 线程终止
+
+- 如果需要main线程控制子线程的终止
+  - 在子线程中设置一个bool loop，加一个setLoop方法
+  - 就能通过控制loop为flase结束while循环
+
+## 线程中断
+
+- interrupt 中断（不是结束），一般用来中断正在休眠的线程（提前结束休眠，然后往后执行）
+
 
 
 ## 第19章 IO流
