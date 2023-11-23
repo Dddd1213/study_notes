@@ -53,6 +53,8 @@
 
 - 解决：参考这个教程安装一点问题没有[Linux安装MongoDB_往西巷的博客-CSDN博客](https://blog.csdn.net/qq_61567609/article/details/130250367?ops_request_misc=%7B%22request%5Fid%22%3A%22169832558216800192263370%22%2C%22scm%22%3A%2220140713.130102334.pc%5Fall.%22%7D&request_id=169832558216800192263370&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-130250367-null-null.142^v96^pc_search_result_base2&utm_term=linux中mongodb的下载&spm=1018.2226.3001.4187)
 - 位置在/usr/local/mongodb
+- 启动：mongod -f /etc/mongodb.conf 
+- 连接：mongo
 
 # 2
 
@@ -491,6 +493,7 @@ db.collection.find(query,options).explain(options)
 
 ## 添加用户和权限
 
+- 先切到admin库
 - db.createUser({"user": "myroot",roles:["root"]})
   - user为后面为用户名（myroot），可以随便取
   - roles:["role":"root", "db":"admin"]
@@ -592,6 +595,37 @@ mongodb://bobo:123456@180.76.159.126:27017,180.76.159.126:27018,180.76.159.126:2
 - localhost可以不用验证权限创建用户
 
 
+
+# 8
+
+## springBoot整合
+
+- 依赖
+
+  ```xml
+     <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-data-mongodb</artifactId>
+          </dependency>
+  ```
+
+- yml
+
+  ```yml
+  spring:
+   data:
+      mongodb:
+        uri: mongodb://ym:12345@113.111.111.111:27017/bi?authSource=admin
+        #uri等同于下面这一堆
+  #      database: bi
+  #      host: 113.111.111.111:27017
+  #      port: 192.168.232.135
+  #      username: ym
+  #      password: 12345
+  #      authentication-database: admin
+  ```
+
+  
 
 
 

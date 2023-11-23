@@ -1,4 +1,4 @@
-# Mysql进阶
+﻿# Mysql进阶
 
 [TOC]
 
@@ -7,7 +7,7 @@
 # 事务
 
 - 要么全成功，要么全失败
-- ![image-20231109214847831](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231109214847831.png)
+- ![image-20231109214847831](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191013096-998823518.png)
 
 ## ACID
 
@@ -24,9 +24,9 @@
 
 ## 隔离级别
 
-![image-20231109213553075](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231109213553075.png)
+![image-20231109213553075](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191012425-1694481078.png)
 
-![image-20231109213733961](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231109213733961.png)
+![image-20231109213733961](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191011916-1466472894.png)
 
 
 
@@ -62,7 +62,7 @@
 
 ## 语法
 
-![image-20231109224940068](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231109224940068.png)
+![image-20231109224940068](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191011328-359619365.png)
 
 ## sql性能分析
 
@@ -71,22 +71,22 @@
   - 可以看当前数据库增删改查的执行频次
 
 - 慢查询日志
-  - ![image-20231109225856462](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231109225856462.png)
+  - ![image-20231109225856462](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191010253-1276002771.png)
 
 - profile详情
 
   - select @@profiling 查看是否打开
   - set profling = 1 打开
 
-  - ![image-20231110125020531](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231110125020531.png)
+  - ![image-20231110125020531](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191009218-1128507161.png)
 
 - explain
 
   - 在sql语句前加 explain或desc
 
-  - ![image-20231110130715900](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231110130715900.png)
+  - ![image-20231110130715900](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191008494-1457481968.png)
 
-    ![image-20231110130750818](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231110130750818.png)
+    ![image-20231110130750818](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191007461-443025944.png)
 
 ## 验证索引效率
 
@@ -113,7 +113,7 @@
 
 - sql提示
 
-  ![image-20231112145403041](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231112145403041.png)
+  ![image-20231112145403041](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191006015-914197333.png)
 
 - 覆盖索引
 
@@ -121,7 +121,7 @@
 - 前缀索引
   - 截取前几个 substring(email,1,10)，从第1个开始截，截10个
 
-![image-20231112150743554](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231112150743554.png)
+![image-20231112150743554](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191004979-1829663704.png)
 
 - 单列索引和联合索引
 
@@ -139,7 +139,7 @@
 - 主键顺序插入
 - 使用load
 
-![image-20231112171718349](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231112171718349.png)
+![image-20231112171718349](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191003921-1039286853.png)
 
 
 
@@ -180,7 +180,7 @@
 
 - 一张虚拟存在的表 
 
-![image-20231112183807931](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231112183807931.png)
+![image-20231112183807931](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191002961-1546408021.png)
 
 - 往视图中插入数据，实际上会插入到基表中
 
@@ -202,7 +202,7 @@
 - 将sql语句进行封装和重用 
 - （类似java中写个方法然后调用）
 
-![image-20231112191756812](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231112191756812.png)
+![image-20231112191756812](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231123191001721-163596782.png)
 
 
 
