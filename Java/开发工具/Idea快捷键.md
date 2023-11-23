@@ -5,6 +5,7 @@
 - ctrl + alt + o  ：清除所有未使用或无效的导入包
 - Ctrl+Alt+h：查看该方法的调用链
 - ctrl+Alt+b：查看子类方法实现
+- ctrl + alt + m：把这个代码块提取出一个方法
 - crtl + q ：查看类、方法、属性注释
 - ctrl + p ：查看方法的参数
 - ctrl + b：查看源码
