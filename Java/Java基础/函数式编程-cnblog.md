@@ -1,4 +1,4 @@
-# 函数式编程
+﻿# 函数式编程
 
 [TOC]
 
@@ -25,7 +25,7 @@
 - 创建流
   - map.entrySet返回一个set集合（转换成单列集合），集合中的买个元素都是一个Entry对象（有点像pair）
 
-![image-20231123122410357](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231123122410357.png)
+![image-20231123122410357](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231126001556726-752575448.png)
 
 ### 中间操作
 
@@ -53,7 +53,7 @@
 - min
 - collect：把流转换成集合
 
-![image-20231123142554508](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231123142554508.png)
+![image-20231123142554508](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231126001556101-355999784.png)
 
 - 查找与匹配：前三个返回bool
   - anyMatch

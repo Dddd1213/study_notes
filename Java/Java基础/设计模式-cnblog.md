@@ -1,4 +1,4 @@
-# 设计模式
+﻿# 设计模式
 
 [TOC]
 
@@ -57,7 +57,7 @@
 
 - 考虑到并发问题，加一个同步锁
 
-![image-20231118144955849](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231118144955849.png)
+![image-20231118144955849](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231126001535011-2128188820.png)
 
 ### 静态内部类
 
@@ -229,7 +229,7 @@
 
 - 只有一个CourseFrcatory，生产各种各样的对象
 
-![image-20231117164744182](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231117164744182.png)
+![image-20231117164744182](https://img2023.cnblogs.com/blog/3299940/202311/3299940-20231126001534451-2146776784.png)
 
 
 
