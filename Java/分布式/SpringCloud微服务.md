@@ -606,16 +606,335 @@ public RequestInterceptor userInfoRequestInterceptor(){
 
   - ![image-20231204234744432](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231204234744432.png)
 
+- （意思就是在nacos中的配置文件改变，不用重启项目，它能热加载）
 
 
 
+# 05
+
+## 雪崩问题
+
+- 某个服务故障导致整个链路中所有的微服务都不可用
+- 解决：服务降级
+  - 请求限流，降低并发
+  - 线程隔离：通过限定每个业务能使用的线程数量将故障业务隔离，避免故障扩散
+  - 服务熔断：由熔断器统计请求异常比例或慢调用比例，如果超出阈值则熔断该业务，拦截该接口的请求；熔断期间所有请求快速失败，走fallback逻辑
+
+- 服务保护技术
+
+![image-20231205003505408](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205003505408.png)
+
+## Sentinel
+
+- 启动控制台：
+
+  ```Shell
+  java -Dserver.port=8090 -Dcsp.sentinel.dashboard.server=localhost:8090 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.6.jar
+  ```
+
+- 配置启动项：[启动配置项 · alibaba/Sentinel Wiki (github.com)](https://github.com/alibaba/Sentinel/wiki/启动配置项)
+
+- 查看控制台
+
+  - 默认用户名密码都是sentinel
+
+  ![image-20231205123604092](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205123604092.png)
+
+- 导入依赖
+
+  ```XML
+  <!--sentinel-->
+  <dependency>
+      <groupId>com.alibaba.cloud</groupId> 
+      <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+  </dependency>
+  ```
+
+- 配置控制台
+
+- 簇点链路：单机调用链路，指一次请求进入服务后每一个被sentinel监控的资源链，默认sentinel会监控springMVC的每一个endpoint（http接口）。默认会把请求路径识别成一个簇点资源的名称。
+
+  - 打开请求方式前缀
+
+    ```YAML
+    spring:
+      cloud:
+        sentinel:
+          transport:
+            dashboard: localhost:8090
+          http-method-specify: true # 开启请求方式前缀
+    ```
+
+  - 就会变成这样
+
+    ![image-20231205124155385](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205124155385.png)
+
+### 限流
+
+![image-20231205124647348](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205124647348.png)
+
+- jmeter：模拟高并发
+
+  - 点开D:\Software\Code\apache-jmeter-5.4.1\bin中的jmeter.bat即可运行
+  - ![image-20231205131415436](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205131415436.png)
+
+  - 可以看到通过是6，拒绝是4
+
+    ![image-20231205131749665](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205131749665.png)
+
+### 线程隔离
+
+- 限制每个服务能够使用的线程数量，即使它出现了故障，也不会把tomcat的资源耗尽
+
+- 配置在feign的远程调用上 - > 服务调用者方
+
+  - 这里是配置在了cart-service里，不是hm-api上
+
+- openfeign整合sentinel
+
+  ```YAML
+  feign:
+    sentinel:
+      enabled: true # 开启feign对sentinel的支持
+  ```
+
+- 加完之后，cart-service调用item-service的请求就会被监控，簇点链路上就会出现/item-service/items，然后对它进行流控设置
+  - 设置并发线程数的单机阈值
+  - 区别：QPS和并发线程数，可能一个线程能处理两个请求，那么此时并发线程数为1，QPS为2
 
 
 
+### FallBack
+
+- 比如请求超出阈值，被拒绝的部分可以自定义拒绝策略，就叫fallback
+
+- fallbackClass：无法对远程调用的异常做处理
+- fallbackfactory：可以、、、、，通常选择这种
+  - 每一个client都有一个自己的fallbackfactory
+
+- 先定义一个fallback类
+
+```java
+@Slf4j
+public class UserClientFallbackFactory implements FallbackFactory<ItemClient> {
+
+    @Override
+    public ItemClient create(Throwable cause) {
+     
+        return new ItemClient() {
+            @Override
+            public List<ItemDTO> queryItemByIds(Collection<Long> ids) {
+                //查询异常返回空集合
+                log.error("远程调用查询商品异常",cause);
+                return Collections.emptyList();
+            }
+        };
+    }
+}
+```
+
+- 把它定义成bean
+
+```java
+@Bean
+public ItemClientFallbackFactory itemClientFallbackFactory(){
+    return new ItemClientFallbackFactory();
+} 
+```
+
+- 在client接口上声明它
+
+```java
+@FeignClient(value = "item-service",fallbackFactory = ItemClientFallbackFactory.class)
+public interface ItemClient {
+
+    @GetMapping("/items")
+    List<ItemDTO> queryItemByIds(@RequestParam("ids") Collection<Long> ids);
+
+}
+```
 
 
 
+### 服务熔断
+
+- 就是把状态差的服务暂时先停掉，不要这个功能，不让他影响整体的运行（类似加载一个页面，某一个数据没有被加载出来，但整个页面没有卡住）
+- 三个状态：
+  - closed：达到失败阈值（失败比例过高、慢请求比例过高），就转open
+  - open：快速失败，一定时间后转half-open
+  - half-open：熔断时间结束，尝试放行一次请求，失败open，成功closed
+
+- 设置
+
+  ![image-20231205151812097](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205151812097.png)
 
 
+
+### 持久化
+
+- 花钱官方保存
+
+- 保存在nacos配置文件中（重）
+
+- 引依赖（配在了cart-service中）
+
+  ```xml
+  <!--        sentinel持久化配置-->
+          <dependency>
+              <groupId>com.alibaba.csp</groupId>
+              <artifactId>sentinel-datasource-nacos</artifactId>
+              <version>1.8.6</version>
+  ```
+
+- 在nacos中创建，json中写规则
+
+  ![image-20231205153334071](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205153334071.png)
+
+- 在配置文件中拉取
+
+  ```yml
+  spring:
+    cloud:
+      sentinel:
+        transport:
+          dashboard: localhost:8090
+        http-method-specify: true # 开启请求方式前缀
+        datasource: 
+          ds2: #配置文件的数据源名称，随便起ds1,ds2,siajofh,saidj
+            nacos:
+              server-addr: 192.234.132.123:8848 #nacos地址
+              data-id: degrade.json #刚在nacos中建的文件名
+              group-id: DEFAULT_GROUP
+              data-type: json
+              rule-type: degrade #降级
+  ```
+
+- 缺点
+
+  - 在nacos中手写容易出错
+  - 这么配之后，如果再到控制台修改，不会再写到nacos中去
+
+
+
+# 06
+
+## 分布式事务
+
+- 多个服务的多个事务必须同时成功或失败
+
+## seata
+
+- 集大成者！
+- 三个角色
+  - TC：事务协调者，维护状态，协调全局事务的提交或回滚
+  - TM：事务管理器，定义全局事务的**范围**，哪开始哪结束
+  - RM：资源管理器，和TC通信
+
+![image-20231205154944164](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205154944164.png)
+
+## seata的使用
+
+- 准备数据库表（持久化）
+
+- 准备配置文件
+
+  - 把seata拷贝到虚拟机root目录
+  - docker启动容器
+
+- 看nacos的服务列表中有seata就是注册好了
+
+  ![image-20231205172906408](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205172906408.png)
+
+
+
+## 微服务整合seata
+
+- 依赖
+
+  ```XML
+  <!--统一配置管理-->
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+    </dependency>
+    <!--读取bootstrap文件-->
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-bootstrap</artifactId>
+    </dependency>
+    <!--seata-->
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+    </dependency>
+    <!--sentinel-->
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+    </dependency>
+  ```
+
+- 配置，让微服务找到TC地址
+
+  - 在nacos中添加一个共享配置，避免重复配置的麻烦
+
+  ```YAML
+  seata:
+    registry: # TC服务注册中心的配置，微服务根据这些信息去注册中心获取tc服务地址
+      type: nacos # 注册中心类型 nacos
+      nacos:
+        server-addr: 192.168.150.101:8848 # nacos地址
+        namespace: "" # namespace，默认为空
+        group: DEFAULT_GROUP # 分组，默认是DEFAULT_GROUP
+        application: seata-server # seata服务名称
+        username: nacos
+        password: nacos
+    tx-service-group: hmall # 事务组名称
+    service:
+      vgroup-mapping: # 事务组与tc集群的映射关系
+        hmall: "default"
+  ```
+
+![image-20231205205827617](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205205827617.png)
+
+
+
+## XA模式
+
+- 分阶段提交
+
+![image-20231205211157041](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205211157041.png)
+
+- 缺点：openfeign串行执行，要等另一个事物完成，资源锁死，性能差；依赖关系型数据库
+
+- 步骤
+
+  - 修改application.yml（每个参与事物的微服务）（也可直接在nacos中seata的共享配置中加）
+
+    ```yml
+    seata：
+    	data-source-proxy-mode: XA
+    ```
+
+  - 给发起全局事务的入口方法添加@GlobalTransactional
+
+  - Todo：是只需要在入口处加还是所有地方都要加
+
+
+
+## AT模式（主）
+
+- 在提交前记录一份快照undo-log（空间换时间）
+
+![image-20231205212739778](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205212739778.png)
+
+- 缺点：不是强一致，是最终一致，不符合ACID，但性能比XA好，所以多用这个
+
+- 使用：
+  - 创建undo_log表（用资料中seata-at.sql）
+  - 修改application.yml为AT
+  - 给发起全局事务的入口方法添加@GlobalTransactional
+
+- 尽可能避免出现分布式事务！
 
 官方笔记：[‌⁤‌⁢﻿⁡⁡‍⁤⁡⁢‬‌‬⁢⁣⁡⁢‍‌⁡⁢⁣⁢⁣⁡‬‌⁤‍‍‌‬‍﻿‬⁤day03-微服务01 - 飞书云文档 (feishu.cn)](https://b11et3un53m.feishu.cn/wiki/R4Sdwvo8Si4kilkSKfscgQX0niB)
