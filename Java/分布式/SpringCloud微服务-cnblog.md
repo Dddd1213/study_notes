@@ -1,4 +1,4 @@
-# SpringCloud微服务
+﻿# SpringCloud微服务
 
 [TOC]
 
@@ -6,9 +6,9 @@
 
 ## 概述
 
-- ![image-20231108094136824](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231108094136824.png)
+- ![image-20231108094136824](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221454241-70341471.png)
 
-- ![image-20231108094247124](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231108094247124.png)
+- ![image-20231108094247124](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221453572-2053102729.png)
 
 ## 微服务
 
@@ -17,11 +17,11 @@
   - 面相服务
   - 自治
   - 隔离
-- ![image-20231108102101411](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231108102101411.png)
+- ![image-20231108102101411](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221452892-394018501.png)
 
 - 注意版本兼容性！！！
 
-![image-20231126170559826](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231126170559826.png)
+![image-20231126170559826](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221452262-594476630.png)
 
 ## 测试高并发
 
@@ -29,7 +29,7 @@
 
 ### 依赖版本的管理
 
-![image-20231126170751373](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231126170751373.png)
+![image-20231126170751373](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221451639-1223360273.png)
 
 
 
@@ -51,11 +51,11 @@
 
   - 使用步骤：
 
-    ![image-20231126220326973](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231126220326973.png)
+    ![image-20231126220326973](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221451024-327849860.png)
 
   - 之前学过用httpclient，区别：
 
-  ![image-20231126214624689](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231126214624689.png)
+  ![image-20231126214624689](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221450576-1746717636.png)
 
 - @Autowared注入：spring不推荐
   - 推荐用构造函数注入
@@ -83,7 +83,7 @@ List<ItemDTO> items = response.getBody();
 
 ## 注册中心
 
-![image-20231126223730168](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231126223730168.png)
+![image-20231126223730168](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221450005-482243390.png)
 
 ## Nacos
 
@@ -165,7 +165,7 @@ spring:
 
 - 在sevice的启动类上加注解
 
-![image-20231127191109485](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231127191109485.png)
+![image-20231127191109485](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221449384-1662706294.png)
 
 - OpenFeign客户端
 
@@ -181,7 +181,7 @@ public interface ItemClient {
 - 使用
   - 补充：[@RequestParam使用-CSDN博客](https://blog.csdn.net/manonggeerdan/article/details/124125896?ops_request_misc=%7B%22request%5Fid%22%3A%22170108530816800226541229%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&request_id=170108530816800226541229&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-124125896-null-null.142^v96^pc_search_result_base2&utm_term=%40RequestParam&spm=1018.2226.3001.4187)
 
-![image-20231127192116350](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231127192116350.png)
+![image-20231127192116350](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221448780-940740643.png)
 
 - （就不需要再用RestTemplate了）
 
@@ -314,7 +314,7 @@ spring:
 
 ### 网关请求处理流程
 
-![image-20231204145114391](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231204145114391.png)
+![image-20231204145114391](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221448119-2095277494.png)
 
 - 登录校验
   - 在NettyRoutingFilter前做
@@ -531,7 +531,7 @@ public RequestInterceptor userInfoRequestInterceptor(){
 
 ## 小结
 
-![image-20231204213459484](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231204213459484.png)
+![image-20231204213459484](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221447440-1850528916.png)
 
 # 04
 
@@ -546,7 +546,7 @@ public RequestInterceptor userInfoRequestInterceptor(){
 ## 配置共享
 
 - 添加配置到Nacos
-  - 配置管理 -> 配置列表 -> 右上那个加号 ![image-20231204222930534](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231204222930534.png)
+  - 配置管理 -> 配置列表 -> 右上那个加号 ![image-20231204222930534](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221446932-1285177815.png)
 
 - 拉取共享配置
 
@@ -604,7 +604,7 @@ public RequestInterceptor userInfoRequestInterceptor(){
     [服务名]-[spring.active.profile].[后缀名]
     ```
 
-  - ![image-20231204234744432](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231204234744432.png)
+  - ![image-20231204234744432](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221446443-719675645.png)
 
 - （意思就是在nacos中的配置文件改变，不用重启项目，它能热加载）
 
@@ -622,7 +622,7 @@ public RequestInterceptor userInfoRequestInterceptor(){
 
 - 服务保护技术
 
-![image-20231205003505408](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205003505408.png)
+![image-20231205003505408](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221445979-1604978729.png)
 
 ## Sentinel
 
@@ -638,7 +638,7 @@ public RequestInterceptor userInfoRequestInterceptor(){
 
   - 默认用户名密码都是sentinel
 
-  ![image-20231205123604092](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205123604092.png)
+  ![image-20231205123604092](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221445262-396795025.png)
 
 - 导入依赖
 
@@ -667,20 +667,20 @@ public RequestInterceptor userInfoRequestInterceptor(){
 
   - 就会变成这样
 
-    ![image-20231205124155385](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205124155385.png)
+    ![image-20231205124155385](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221444611-738379523.png)
 
 ### 限流
 
-![image-20231205124647348](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205124647348.png)
+![image-20231205124647348](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221444093-22062804.png)
 
 - jmeter：模拟高并发
 
   - 点开D:\Software\Code\apache-jmeter-5.4.1\bin中的jmeter.bat即可运行
-  - ![image-20231205131415436](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205131415436.png)
+  - ![image-20231205131415436](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221443649-1116148480.png)
 
   - 可以看到通过是6，拒绝是4
 
-    ![image-20231205131749665](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205131749665.png)
+    ![image-20231205131749665](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221442929-408069346.png)
 
 ### 线程隔离
 
@@ -766,7 +766,7 @@ public interface ItemClient {
 
 - 设置
 
-  ![image-20231205151812097](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205151812097.png)
+  ![image-20231205151812097](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221442022-1031065254.png)
 
 
 
@@ -788,7 +788,7 @@ public interface ItemClient {
 
 - 在nacos中创建，json中写规则
 
-  ![image-20231205153334071](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205153334071.png)
+  ![image-20231205153334071](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221441567-199106008.png)
 
 - 在配置文件中拉取
 
@@ -830,7 +830,7 @@ public interface ItemClient {
   - TM：事务管理器，定义全局事务的**范围**，哪开始哪结束
   - RM：资源管理器，和TC通信
 
-![image-20231205154944164](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205154944164.png)
+![image-20231205154944164](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221441042-439145481.png)
 
 ## seata的使用
 
@@ -843,7 +843,7 @@ public interface ItemClient {
 
 - 看nacos的服务列表中有seata就是注册好了
 
-  ![image-20231205172906408](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205172906408.png)
+  ![image-20231205172906408](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221440428-40129874.png)
 
 
 
@@ -895,7 +895,7 @@ public interface ItemClient {
         hmall: "default"
   ```
 
-![image-20231205205827617](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205205827617.png)
+![image-20231205205827617](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221439920-1425599838.png)
 
 
 
@@ -903,7 +903,7 @@ public interface ItemClient {
 
 - 分阶段提交
 
-![image-20231205211157041](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205211157041.png)
+![image-20231205211157041](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221439172-1244086001.png)
 
 - 缺点：openfeign串行执行，要等另一个事物完成，资源锁死，性能差；依赖关系型数据库
 
@@ -926,7 +926,7 @@ public interface ItemClient {
 
 - 在提交前记录一份快照undo-log（空间换时间）
 
-![image-20231205212739778](C:\Users\31067\AppData\Roaming\Typora\typora-user-images\image-20231205212739778.png)
+![image-20231205212739778](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221438326-1305172105.png)
 
 - 缺点：不是强一致，是最终一致，不符合ACID，但性能比XA好，所以多用这个
 
