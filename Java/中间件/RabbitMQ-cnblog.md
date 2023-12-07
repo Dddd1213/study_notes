@@ -125,7 +125,6 @@ spring:
   - **Direct**：订阅，基于RoutingKey（路由key）发送给订阅了消息的队列
   - **Topic**：通配符订阅，与Direct类似，只不过RoutingKey可以使用通配符
   - **Headers**：头匹配，基于MQ的消息头匹配，用的较少。
-- 
 
 ### 广播模式
 
