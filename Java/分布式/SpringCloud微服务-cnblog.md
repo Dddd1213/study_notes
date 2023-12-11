@@ -1,4 +1,4 @@
-﻿# SpringCloud微服务
+# SpringCloud微服务
 
 [TOC]
 
@@ -85,7 +85,7 @@ List<ItemDTO> items = response.getBody();
 
 ![image-20231126223730168](https://img2023.cnblogs.com/blog/3299940/202312/3299940-20231205221450005-482243390.png)
 
-## Nacos
+## Nacos（重要）
 
 - 需要一个数据库表存储nacos的数据
 
@@ -142,7 +142,7 @@ spring:
 
 
 
-## OpenFeign
+## OpenFeign（重要）
 
 - 发送http请求的
 
