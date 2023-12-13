@@ -208,7 +208,7 @@ create table question_submit
   - 主要作用是起一个运行和环境隔离。
 - 服务解耦：API交互
 
-## 代码沙箱开发
+## 3.1 代码沙箱开发
 
 - 定义代码沙箱接口
 
@@ -257,24 +257,172 @@ create table question_submit
 - **通过读取yml配置使用哪种代码沙箱**
   - 调用工厂时把读取的type传进去就行
 
+### 记录日志
+
 - 在沙箱调用前后加日志，输出request和response信息
-  - 静态代理实现
-  - AOP实现
-    - 注意：切入点中@within用于匹配方法级别的注解，@annotation用于匹配方法级别的注解
+
+#### 法一：静态代理实现
+
+- 代理类
+
+  ```java
+  @Slf4j
+  public class CodeSandboxAddLogStaticProxy implements CodeSandbox {
+  
+      private CodeSandbox codeSandbox;
+      
+      public CodeSandboxAddLogStaticProxy(CodeSandbox codeSandbox){
+          this.codeSandbox=codeSandbox;
+      }
+      @Override
+      public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
+  
+          log.info("进入CodeSandboxAddLogStaticProxy......");
+  
+          log.info("代码沙箱請求信息: "+executeCodeRequest.toString());
+          //执行目标方法
+          ExecuteCodeResponse res = codeSandbox.executeCode(executeCodeRequest);
+          ExecuteCodeResponse executeCodeResponse = res;
+          log.info("代码沙箱响应信息："+executeCodeResponse.toString());
+  
+          return res;
+      }
+  }
+  ```
+
+#### 法三：工厂模式+手写动态代理实现
+
+- 动态代理详见【知识点补充：动态代理+AOP部分】
+
+- 代理类
+
+  ```java
+  @Slf4j
+  public class CodeSandboxAddLogProxy implements InvocationHandler {
+  
+      private Object target = null;
+  
+      public CodeSandboxAddLogProxy(Object target){
+          this.target=target;
+      }
+  
+      @Override
+      public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+  
+          log.info("进入CodeSandboxAddLogProxy......");
+  
+          ExecuteCodeRequest executeCodeRequest = (ExecuteCodeRequest)args[0];
+          log.info("代码沙箱請求信息: "+executeCodeRequest.toString());
+          //执行目标方法
+          Object res = method.invoke(target, args);
+          ExecuteCodeResponse executeCodeResponse = (ExecuteCodeResponse)res;
+          log.info("代码沙箱响应信息："+executeCodeResponse.toString());
+  
+          return res;
+      }
+  }
+  ```
+
+- 测试类
+
+  ```java
+   @Value("${codesandbox.type:example}")
+      private String type;
+  
+  @Test
+  void executeCode2() {
+  
+      //创建动态代理
+      CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
+      InvocationHandler handler = new CodeSandboxAddLogProxy(codeSandbox);
+  
+      CodeSandbox proxy = (CodeSandbox)Proxy.newProxyInstance(codeSandbox.getClass().getClassLoader(),
+              codeSandbox.getClass().getInterfaces(),
+              handler
+      );
+      //创建 executeCodeRequest
+      String code = "int main{return 0;}";
+      String java = QuestionSubmitLanguageEnum.JAVA.getValue();
+      List<String> inputList = Arrays.asList("1 2", "3,4");
+  
+      ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
+              .code(code)
+              .language(java)
+              .inputList(inputList)
+              .build();
+     proxy.executeCode(executeCodeRequest);
+  
+  }
+  ```
 
 
 
+#### 法三：依赖注入+AOP+自定义注解 实现
+
+- 切面类代码
+
+  - 注意：切入点中@within用于匹配方法级别的注解，@annotation用于匹配方法级别的注解
+  - 注意：@Around必须返回Object
+
+  ```java
+  @Aspect
+  @Component
+  @Slf4j
+  public class CodeSandboxLogAspect {
+      @Pointcut("@annotation(com.yangmao.yangoj.annotation.SandboxLog)")
+      public void SandboxLogPt(){}
+  
+      @Around("SandboxLogPt()")
+      public Object SandboxLog(ProceedingJoinPoint point) throws Throwable {
+          log.info("进入SandboxLogAspect...");
+          Object[] args = point.getArgs();
+          if(ObjectUtils.isEmpty(args)){
+             return point.proceed();
+          }
+          ExecuteCodeRequest executeCodeRequest = (ExecuteCodeRequest)args[0];
+          log.info("代码沙箱請求信息: "+executeCodeRequest.toString());
+          Object res = point.proceed();
+          ExecuteCodeResponse executeCodeResponse = (ExecuteCodeResponse)res;
+          log.info("代码沙箱响应信息："+executeCodeResponse.toString());
+          return res;
+      }
+  
+  }
+  ```
+
+- 自定义注解
 
 
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface SandboxLog {
 
+}
+```
 
+- 测试类
 
+```java
+@Resource(name = "${codesandbox.type:example}"+"CodeSandbox")
+CodeSandbox codeSandbox;
+@Test
+    void executeCode3(){
+        String code = "int main{return 0;}";
+        String java = QuestionSubmitLanguageEnum.JAVA.getValue();
+        List<String> inputList = Arrays.asList("1 2", "3,4");
 
+        ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
+                .code(code)
+                .language(java)
+                .inputList(inputList)
+                .build();
+        codeSandbox.executeCode(executeCodeRequest);
 
+    }
+```
 
-
-
-
+- TODO：自定义注解如果在接口上不会生效（看看底层原理）
 
 
 
